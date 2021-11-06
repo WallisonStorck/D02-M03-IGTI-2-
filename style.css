@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* .allCountries .favoriteCountries {
+  border: 1px solid #000000;
+  border-radius: 5px;
+} */
+
+.allCountries {
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+.favoriteCountries {
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+
+ul { /* Tira os pontinhos da lista */
+  list-style: none;
+}
+
+li{
+  display: flex;
+  align-items: center;
+}
+
+img { /* Deixa a imagem redonda... */
+  max-width:100px;
+  max-height:75px;
+  width: auto;
+  height: auto;
+  
+  clip-path: circle();
+  margin: 0 3% 0 0;
+  size: 1px;
+}
