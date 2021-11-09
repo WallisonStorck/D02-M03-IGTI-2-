@@ -1,6 +1,6 @@
 # Desafio 2
 
-1. Buscar os dados em https://restcountries.com/v3.1/all.
+1. Buscar os dados em https://restcountries.com/v2/all.
 2. Transforme os dados de forma que somente os seguintes itens sejam disponiveis:
    * Nome
    * Bandeira
