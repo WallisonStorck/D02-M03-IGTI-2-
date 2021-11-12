@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-around;
 }
 
@@ -12,6 +12,7 @@
 .allCountries {
   border: 1px solid #000000;
   border-radius: 5px;
+  max-width: 60%;
 }
 
 .favoriteCountries {
@@ -27,6 +28,7 @@ ul { /* Tira os pontinhos da lista */
 li{
   display: flex;
   align-items: center;
+  padding: 10px;
 }
 
 img { /* Deixa a imagem redonda... */
