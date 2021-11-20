@@ -1,7 +1,7 @@
-let countries = {
-  GENERAL: null,
-  FAVORITES: null,
-};
+// let countries = {
+//   GENERAL: null,
+//   FAVORITES: null,
+// };
 
 let countriesFavorites = [];
 let countriesGeneral = [];
@@ -18,52 +18,71 @@ let classNames = {
   UL_FAVORITES: null,
 };
 
-function removeFromFavorites(id) {
-  const i = countriesGeneral.findIndex((country) => {
-    return parseInt(country.id) == id;
-  });
-  countriesFavorites.splice(i, 1);
-}
-
-function removeFromGeneral(id) {
-  countriesGeneral.splice(id, 1);
-  showCountries(countriesGeneral);
-}
-
-function moveToFavorite(id) {
-  const i = countriesGeneral.findIndex((country) => {
-    return parseInt(country.id) === id;
-  });
-
-  countriesFavorites.push(countriesGeneral[i]);
-
+function showCountriesFavorites() {
   classNames.UL_FAVORITES.innerHTML = ""; //Limpa a ul
+  console.log("showCountriesFavorites");
+  console.log(countriesFavorites);
   countriesFavorites.forEach((country) => {
     classNames.UL_FAVORITES.innerHTML += `<li>
-    <a class="btn-floating btn-small waves-effect waves-light red" onclick="removeFromFavorites(${country.id})"><i class="material-icons">-</i></a>
+    <a class="btn-floating btn-small waves-effect waves-light red" onclick="moveToGeneral(${parseInt(
+      country.id
+    )})"><i class="material-icons">-</i></a>
     <img src=${country.flag} alt="Bandeira">
     ${country.name}
     <br>${country.population}
     </li>`;
   });
 
-  removeFromGeneral(i);
-
   //Conta a população
-  console.log(countriesFavorites);
   const countPopulation = countriesFavorites.reduce((accumulator, current) => {
     return (accumulator += current.population);
   }, 0);
-
   classNames.H2_FAVORITES.textContent = `Países (${countriesFavorites.length})`;
   classNames.SPAN_FAVORITES.textContent = `População total: ${countPopulation}`;
 }
 
-function showCountries() {
-  //Lista países
+function removeFromFavorites(id) {
+  const i = countriesFavorites.findIndex((country) => {
+    return parseInt(country.id) == id;
+  });
+  countriesFavorites.splice(i, 1);
+  showCountriesFavorites(countriesFavorites);
+}
+
+function removeFromGeneral(id) {
+  const i = countriesGeneral.findIndex((country) => {
+    return parseInt(country.id) == id;
+  });
+
+  countriesGeneral.splice(i, 1);
+  showCountriesGeneral(countriesGeneral);
+}
+
+function moveToGeneral(id) {
+  const i = countriesFavorites.findIndex((country) => {
+    return parseInt(country.id) === id;
+  });
+  countriesGeneral.push(countriesFavorites[i]);
+
+  showCountriesGeneral();
+
+  removeFromFavorites(id);
+}
+
+function moveToFavorite(id) {
+  const i = countriesGeneral.findIndex((country) => {
+    return parseInt(country.id) === id;
+  });
+  countriesFavorites.push(countriesGeneral[i]);
+
+  showCountriesFavorites();
+
+  removeFromGeneral(id);
+}
+
+function showCountriesGeneral() {
   classNames.UL_GENERAL.innerHTML = ""; //Limpa a ul
   countriesGeneral.forEach((country) => {
-    // console.log(`${country.name} => ${country.id}`);
     classNames.UL_GENERAL.innerHTML += `<li>
     <a class="btn-floating btn-small waves-effect waves-light" onclick="moveToFavorite(${parseInt(
       country.id
@@ -78,7 +97,6 @@ function showCountries() {
   const countPopulation = countriesGeneral.reduce((accumulator, current) => {
     return (accumulator += current.population);
   }, 0);
-
   classNames.H2_GENERAL.textContent = `Países (${countriesGeneral.length})`;
   classNames.SPAN_GENERAL.textContent = `População total: ${countPopulation}`;
 }
@@ -95,7 +113,7 @@ async function getDataAPI() {
     };
   });
 
-  showCountries();
+  showCountriesGeneral();
 }
 
 function init() {
